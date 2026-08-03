@@ -51,7 +51,12 @@ public without sharing class RegistrationController {
             user.CommunityNickname = firstName.toLowerCase() + lastName.toLowerCase() + String.valueOf(DateTime.now().getTime());
             user.ContactId = con.Id;
 
-            user.ProfileId = [SELECT Id FROM Profile WHERE Name = 'Customer' LIMIT 1].Id;
+            user.ProfileId = [
+                SELECT Id
+                FROM Profile
+                WHERE Name = 'Cosmetic Customer'
+                LIMIT 1
+            ].Id;
 
             user.Alias = (firstName.substring(0, 1) + lastName.substring(0, 4)).toLowerCase();
             user.TimeZoneSidKey = 'Asia/Kolkata';
@@ -59,7 +64,7 @@ public without sharing class RegistrationController {
             user.EmailEncodingKey = 'UTF-8';
             user.LanguageLocaleKey = 'en_US';
 
-            String userId = Site.createExternalUser(user, accountId, password);
+            String userId = Site.createExternalUser(user, acc.Id, password);
 
 
             System.debug('CONTACT CREATED: ' + con.Id);
