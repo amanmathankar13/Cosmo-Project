@@ -5,17 +5,13 @@ public without sharing class RegistrationController {
         String firstName,
         String lastName,
         String email,
-        String phone,
-        String address,
-        String city,
-        String state,
-        String country,
-        String pincode
+        String phone
     ) {
 
         try {
 
-            // Create Customer Account
+            System.debug('STEP 1: Creating Account');
+
 
             Account acc = new Account();
 
@@ -24,8 +20,11 @@ public without sharing class RegistrationController {
             insert acc;
 
 
+            System.debug('ACCOUNT CREATED: ' + acc.Id);
 
-            // Create Customer Contact
+
+            System.debug('STEP 2: Creating Contact');
+
 
             Contact con = new Contact();
 
@@ -40,49 +39,10 @@ public without sharing class RegistrationController {
             con.AccountId = acc.Id;
 
 
-            if(address != null){
-                con.MailingStreet = address;
-            }
-
-            if(city != null){
-                con.MailingCity = city;
-            }
-
-            if(state != null){
-                con.MailingState = state;
-            }
-
-            if(country != null){
-                con.MailingCountry = country;
-            }
-
-            if(pincode != null){
-                con.MailingPostalCode = pincode;
-            }
+            insert con;
 
 
-            try{
-
-                insert con;
-
-            }
-            catch(Exception e){
-
-                System.debug('ERROR MESSAGE : ' + e.getMessage());
-                System.debug('ERROR LINE : ' + e.getLineNumber());
-                System.debug('STACK TRACE : ' + e.getStackTraceString());
-
-                throw new AuraHandledException(
-                    'Registration Failed: ' +
-                    e.getTypeName() +
-                    ' - ' +
-                    e.getMessage() +
-                    ' Line: ' +
-                    e.getLineNumber()
-                );
-
-}
-
+            System.debug('CONTACT CREATED: ' + con.Id);
 
 
             return 'SUCCESS';
@@ -91,11 +51,19 @@ public without sharing class RegistrationController {
         }
         catch(Exception e){
 
+            System.debug('ERROR TYPE : ' + e.getTypeName());
+            System.debug('ERROR MESSAGE : ' + e.getMessage());
+            System.debug('ERROR LINE : ' + e.getLineNumber());
+            System.debug('STACK TRACE : ' + e.getStackTraceString());
+
+
             throw new AuraHandledException(
-                'Registration Failed: ' +
-                e.getMessage() +
-                ' Line: ' +
-                e.getLineNumber()
+                'Registration Failed: ' 
+                + e.getTypeName()
+                + ' - '
+                + e.getMessage()
+                + ' Line: '
+                + e.getLineNumber()
             );
 
         }
