@@ -1,0 +1,88 @@
+<template>
+    <header class="header">
+
+        <div class="logo" onclick={goHome}>
+            🌸 Beauty Bliss
+        </div>
+
+        <div class="search-box">
+            <lightning-input
+                type="search"
+                variant="label-hidden"
+                placeholder="Search products..."
+                onchange={handleSearch}>
+            </lightning-input>
+        </div>
+
+        <nav class="menu">
+
+            <a onclick={goHome}>Home</a>
+
+            <a onclick={goShop}>Shop</a>
+
+            <div class="dropdown">
+                <span>Categories ▾</span>
+
+                <div class="dropdown-content">
+                    <a onclick={goSkincare}>Skincare</a>
+                    <a onclick={goMakeup}>Makeup</a>
+                    <a onclick={goHaircare}>Haircare</a>
+                    <a onclick={goFragrance}>Fragrance</a>
+                </div>
+            </div>
+
+            <a onclick={goOffers}>Offers</a>
+
+            <a onclick={goAbout}>About</a>
+
+            <a onclick={goContact}>Contact</a>
+
+        </nav>
+
+        <div class="icons">
+
+            <lightning-button-icon
+                icon-name="utility:favorite"
+                variant="bare"
+                alternative-text="Wishlist"
+                onclick={goWishlist}>
+            </lightning-button-icon>
+
+            <lightning-button-icon
+                icon-name="utility:cart"
+                variant="bare"
+                alternative-text="Cart"
+                onclick={goCart}>
+            </lightning-button-icon>
+
+            <template if:true={isGuest}>
+                <lightning-button
+                    label="Login"
+                    variant="brand"
+                    onclick={goLogin}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Register"
+                    variant="neutral"
+                    onclick={goRegister}>
+                </lightning-button>
+            </template>
+
+            <template if:false={isGuest}>
+                <lightning-button
+                    label="Profile"
+                    onclick={goProfile}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Logout"
+                    variant="destructive"
+                    onclick={logout}>
+                </lightning-button>
+            </template>
+
+        </div>
+
+    </header>
+</template>

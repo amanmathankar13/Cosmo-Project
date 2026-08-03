@@ -1,0 +1,191 @@
+<template>
+
+    <lightning-card title="Shopping Cart" icon-name="utility:cart">
+
+        <template if:true={isCartEmpty}>
+
+            <div class="empty-cart">
+
+                <lightning-icon
+                    icon-name="utility:cart"
+                    size="large">
+                </lightning-icon>
+
+                <h2>Your Cart is Empty</h2>
+
+                <p>
+                    Looks like you haven't added any products yet.
+                </p>
+
+            </div>
+
+        </template>
+
+        <template if:false={isCartEmpty}>
+
+            <div class="cart-container">
+
+                <template
+                    for:each={cart}
+                    for:item="item">
+
+                    <div
+                        key={item.productId}
+                        class="cart-item">
+
+                        <!-- Product Image -->
+
+                        <div class="image-section">
+
+                            <template if:true={item.imageUrl}>
+
+                                <img
+                                    src={item.imageUrl}
+                                    alt={item.name} />
+
+                            </template>
+
+                            <template if:false={item.imageUrl}>
+
+                                <lightning-icon
+                                    icon-name="standard:product"
+                                    size="large">
+                                </lightning-icon>
+
+                            </template>
+
+                        </div>
+
+                        <!-- Product Details -->
+
+                        <div class="product-details">
+
+                            <h2>{item.name}</h2>
+
+                            <p class="category">
+                                {item.category}
+                            </p>
+
+                            <p class="price">
+                                ₹ {item.price}
+                            </p>
+
+
+                        </div>
+
+                        <!-- Quantity -->
+
+                        <div class="quantity-section">
+
+                            <lightning-button-icon
+
+                                icon-name="utility:dash"
+
+                                alternative-text="Decrease"
+
+                                data-id={item.productId}
+
+                                onclick={decreaseQuantity}>
+                            </lightning-button-icon>
+
+                            <span class="quantity">
+
+                                {item.quantity}
+
+                            </span>
+
+                            <lightning-button-icon
+
+                                icon-name="utility:add"
+
+                                alternative-text="Increase"
+
+                                data-id={item.productId}
+
+                                onclick={increaseQuantity}>
+                            </lightning-button-icon>
+
+                        </div>
+
+                        <!-- Total -->
+
+                        <div class="subtotal">
+
+                            ₹ {item.total}
+
+                        </div>
+
+                        <!-- Remove -->
+
+                        <div class="remove">
+
+                            <lightning-button-icon
+
+                                icon-name="utility:delete"
+
+                                variant="destructive"
+
+                                data-id={item.productId}
+
+                                onclick={removeItem}>
+                            </lightning-button-icon>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <!-- Summary -->
+
+                <div class="summary">
+
+                    <div class="summary-row">
+
+                        <span>Total Items</span>
+
+                        <span>{cartCount}</span>
+
+                    </div>
+
+                    <div class="summary-row total">
+
+                        <span>Total Amount</span>
+
+                        <span>
+
+                            ₹ {totalAmount}
+
+                        </span>
+
+                    </div>
+
+                    <div class="checkout-buttons">
+
+                        <lightning-button
+
+                            label="Clear Cart"
+
+                            onclick={clearCart}>
+                        </lightning-button>
+
+                        <lightning-button
+
+                            variant="success"
+
+                            label="Checkout"
+
+                            onclick={checkout}>
+                        </lightning-button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </lightning-card>
+
+</template>

@@ -1,0 +1,105 @@
+<template>
+
+    <lightning-card title="Create Account">
+
+        <div class="container">
+
+            <lightning-input
+                label="First Name"
+                value={firstName}
+                onchange={handleChange}
+                data-field="firstName">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Last Name"
+                value={lastName}
+                onchange={handleChange}
+                data-field="lastName">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Email"
+                type="email"
+                value={email}
+                onchange={handleChange}
+                data-field="email">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Phone"
+                value={phone}
+                onchange={handleChange}
+                data-field="phone">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Address"
+                value={address}
+                onchange={handleChange}
+                data-field="address">
+            </lightning-input>
+
+
+            <lightning-input
+                label="City"
+                value={city}
+                onchange={handleChange}
+                data-field="city">
+            </lightning-input>
+
+
+            <lightning-input
+                label="State"
+                value={state}
+                onchange={handleChange}
+                data-field="state">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Country"
+                value={country}
+                onchange={handleChange}
+                data-field="country">
+            </lightning-input>
+
+
+            <lightning-input
+                label="Pincode"
+                value={pincode}
+                onchange={handleChange}
+                data-field="pincode">
+            </lightning-input>
+
+
+            <lightning-input
+                type="password"
+                label="Password"
+                onchange={handleChange}
+                data-field="password">
+            </lightning-input>
+
+
+            <lightning-button
+                class="button"
+                label="Register"
+                variant="brand"
+                onclick={registerUser}>
+            </lightning-button>
+
+
+            <template if:true={message}>
+                <p>{message}</p>
+            </template>
+
+
+        </div>
+
+    </lightning-card>
+
+</template>

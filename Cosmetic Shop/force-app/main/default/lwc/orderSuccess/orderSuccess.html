@@ -1,0 +1,65 @@
+<template>
+
+    <lightning-card>
+
+        <div class="success-container">
+
+            <div class="success-icon">
+                <lightning-icon
+                    icon-name="utility:success"
+                    size="large"
+                    variant="success">
+                </lightning-icon>
+            </div>
+
+            <h1>Order Placed Successfully!</h1>
+
+            <p class="subtitle">
+                Thank you for shopping with us.
+            </p>
+
+            <div class="success-card">
+
+                <div class="detail-row">
+                    <span>Order Number</span>
+                    <strong>{orderNumber}</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Order Date</span>
+                    <strong>{orderDate}</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Payment Method</span>
+                    <strong>{paymentMethod}</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Total Amount</span>
+                    <strong>₹ {totalAmount}</strong>
+                </div>
+
+                <div class="detail-row">
+                    <span>Estimated Delivery</span>
+                    <strong>{deliveryDate}</strong>
+                </div>
+
+            </div>
+
+            <div class="button-section">
+
+                <lightning-button
+                    variant="brand"
+                    label="Continue Shopping"
+                    onclick={continueShopping}
+                    class="continue-btn">
+                </lightning-button>
+
+            </div>
+
+        </div>
+
+    </lightning-card>
+
+</template>

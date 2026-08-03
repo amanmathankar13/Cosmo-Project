@@ -1,0 +1,213 @@
+<template>
+
+    <lightning-card title="Checkout" icon-name="utility:moneybag">
+
+        <div class="checkout-container">
+
+            <!-- Left Section -->
+
+            <div class="customer-section">
+
+                <lightning-input
+                    label="Full Name"
+                    value={customerName}
+                    onchange={handleName}>
+                </lightning-input>
+
+                <lightning-input
+                    type="email"
+                    label="Email"
+                    value={email}
+                    onchange={handleEmail}>
+                </lightning-input>
+
+                <lightning-input
+                    type="tel"
+                    label="Phone"
+                    value={phone}
+                    onchange={handlePhone}>
+                </lightning-input>
+
+                <lightning-textarea
+                    label="Shipping Address"
+                    value={address}
+                    onchange={handleAddress}>
+                </lightning-textarea>
+
+                <div class="address-grid">
+
+                    <lightning-input
+                        label="City"
+                        value={city}
+                        onchange={handleCity}>
+                    </lightning-input>
+
+                    <lightning-input
+                        label="State"
+                        value={state}
+                        onchange={handleState}>
+                    </lightning-input>
+
+                </div>
+
+                <div class="address-grid">
+
+                    <lightning-input
+                        label="Country"
+                        value={country}
+                        onchange={handleCountry}>
+                    </lightning-input>
+
+                    <lightning-input
+                        label="Pincode"
+                        value={pincode}
+                        onchange={handlePincode}>
+                    </lightning-input>
+
+                </div>
+
+                <lightning-radio-group
+                    label="Payment Method"
+                    options={paymentOptions}
+                    value={paymentMethod}
+                    type="radio"
+                    onchange={handlePayment}>
+                </lightning-radio-group>
+
+            </div>
+
+            <!-- Right Section -->
+
+            <div class="summary-section">
+
+                <h2 class="summary-title">
+
+                    Order Summary
+
+                </h2>
+
+                <template
+                    for:each={cart}
+                    for:item="item">
+
+                    <div
+                        key={item.productId}
+                        class="summary-item">
+
+                        <div>
+
+                            <strong>
+
+                                {item.name}
+
+                            </strong>
+                            </br>
+                            
+
+
+                            Qty :
+                            {item.quantity}
+
+                        </div>
+
+                        <div>
+
+                            ₹ {item.total}
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+                <hr>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Subtotal
+
+                    </span>
+
+                    <span>
+
+                        ₹ {subtotal}
+
+                    </span>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        Delivery
+
+                    </span>
+
+                    <span>
+
+                        ₹ {deliveryCharge}
+
+                    </span>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+
+                        GST (18%)
+
+                    </span>
+
+                    <span>
+
+                        ₹ {gst}
+
+                    </span>
+
+                </div>
+
+                <hr>
+
+                <div class="summary-total">
+
+                    <span>
+
+                        Grand Total
+
+                    </span>
+
+                    <span>
+
+                        ₹ {grandTotal}
+
+                    </span>
+
+                </div>
+
+                <div class="button-section">
+
+                    <lightning-button
+                        label="Back to Cart"
+                        onclick={backToCart}>
+                    </lightning-button>
+
+                    <lightning-button
+                        variant="brand"
+                        class = "place-order-btn"
+                        label="Place Order"
+                        onclick={placeOrder}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </lightning-card>
+
+</template>

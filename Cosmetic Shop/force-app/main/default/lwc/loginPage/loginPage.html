@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="Welcome Back">
+
+        <div class="slds-p-around_large">
+
+            <lightning-input
+                type="email"
+                label="Email"
+                value={username}
+                onchange={handleUsername}
+                required>
+            </lightning-input>
+
+            <lightning-input
+                type="password"
+                label="Password"
+                value={password}
+                onchange={handlePassword}
+                required>
+            </lightning-input>
+
+            <div class="slds-m-top_medium">
+
+                <lightning-button
+                    label="Login"
+                    variant="brand"
+                    onclick={login}>
+                </lightning-button>
+
+            </div>
+
+            <div class="slds-m-top_medium">
+
+                <a href="/register">
+                    Create New Account
+                </a>
+
+            </div>
+
+        </div>
+
+    </lightning-card>
+</template>

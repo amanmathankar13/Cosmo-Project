@@ -1,0 +1,212 @@
+<template>
+
+    <lightning-card>
+
+        <!-- Header -->
+
+        <div class="header-section">
+
+            <lightning-input
+                type="search"
+                placeholder="Search Products..."
+                onchange={handleSearch}
+                class="search-box">
+            </lightning-input>
+
+            <div class="header-actions">
+
+                <lightning-button
+                    label="Filter"
+                    icon-name="utility:filterList"
+                    onclick={toggleFilters}>
+                </lightning-button>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!--    Filters     -->
+        <template if:true={showFilters}>
+
+            <div class="filter-panel">
+
+                <lightning-combobox
+                    label="Category"
+                    value={selectedCategory}
+                    options={categoryFilterOptions}
+                    onchange={handleCategoryFilter}>
+                </lightning-combobox>
+
+                <lightning-combobox
+                    label="Availability"
+                    value={selectedAvailability}
+                    options={availabilityOptions}
+                    onchange={handleAvailabilityFilter}>
+                </lightning-combobox>
+
+                <lightning-combobox
+                    label="Price Range"
+                    value={selectedPriceRange}
+                    options={priceOptions}
+                    onchange={handlePriceFilter}>
+                </lightning-combobox>
+
+                <div class="filter-buttons">
+
+                    <lightning-button
+                        label="Clear"
+                        onclick={clearFilters}>
+                    </lightning-button>
+
+                    <lightning-button
+                        label="Apply"
+                        variant="brand"
+                        onclick={applyFilters}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+        </template>
+
+        <!-- Loader -->
+
+
+        <template if:true={isLoading}>
+
+            <div class="spinner-container">
+
+                <lightning-spinner
+                    size="large"
+                    alternative-text="Loading">
+                </lightning-spinner>
+
+            </div>
+
+        </template>
+
+        <!-- Empty State -->
+
+        <template if:false={products.length}>
+
+            <div class="empty-state">
+
+                <lightning-icon
+                    icon-name="standard:product"
+                    size="large">
+                </lightning-icon>
+
+                <h2>No Products Available</h2>
+
+                <p>
+                    Add your first cosmetic product.
+                </p>
+
+            </div>
+
+        </template>
+
+        <!-- Product Grid -->
+
+        <div class="product-grid">
+
+            <template
+                for:each={products}
+                for:item="product">
+
+                <div
+                    key={product.productId}
+                    class="product-card">
+
+                    <!-- Product Image -->
+
+                    <template if:true={product.imageUrl}>
+
+                        <img src={product.imageUrl} alt={product.name}>
+
+                    </template>
+
+                    <template if:false={product.imageUrl}>
+
+                        <div class="image-placeholder">
+
+                            <lightning-icon
+                                icon-name="standard:product"
+                                size="large">
+                            </lightning-icon>
+
+                        </div>
+
+                    </template>
+
+                    <!-- Product Content -->
+
+                    <div class="product-content">
+
+                        <div class="product-category">
+                            {product.category}
+                        </div>
+
+                        <h2 class="product-name">
+                            {product.name}
+                        </h2>
+
+                        <div class="price-stock-wrapper">
+
+                            <span class="product-price">
+                                ₹ {product.price}
+                            </span>
+
+                            <span class={product.stockClass}>
+                                {product.stockLabel}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Actions -->
+
+                    <div class="button-section">
+
+                        <lightning-button
+                            label="Add to Cart"
+                            variant="brand"
+                            data-id={product.productId}
+                            onclick={handleAddToCart}>
+                        </lightning-button>
+
+                        <lightning-button
+                            label="Buy Now"
+                            variant="destructive"
+                            data-id={product.productId}
+                            onclick={handleDelete}>
+                        </lightning-button>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+        </div>
+
+        <!-- CREATE PRODUCT MODAL -->
+
+        
+
+            >
+
+       
+
+        <!-- EDIT MODAL -->
+
+        
+
+    </lightning-card>
+
+</template>
