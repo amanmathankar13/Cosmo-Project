@@ -45,8 +45,8 @@ public without sharing class RegistrationController {
 
             // Create External User
 
-            User user = new User();
 
+            User user = new User();
 
             user.FirstName = firstName;
 
@@ -54,8 +54,7 @@ public without sharing class RegistrationController {
 
             user.Email = email;
 
-            user.Username = email + '.customer';
-
+            user.Username = email;
 
             user.CommunityNickname =
                 firstName.toLowerCase()
@@ -65,20 +64,16 @@ public without sharing class RegistrationController {
                 String.valueOf(DateTime.now().getTime());
 
 
-
             user.ContactId = con.Id;
 
 
-            // CHANGE THIS PROFILE NAME
-
             user.ProfileId =
-                [
-                    SELECT Id
-                    FROM Profile
-                    WHERE Name = 'Customer'
-                    LIMIT 1
-                ].Id;
-
+            [
+                SELECT Id
+                FROM Profile
+                WHERE Name = 'Customer'
+                LIMIT 1
+            ].Id;
 
 
             user.Alias =
@@ -88,49 +83,23 @@ public without sharing class RegistrationController {
                 .toLowerCase();
 
 
+            user.TimeZoneSidKey = 'Asia/Kolkata';
 
-            user.TimeZoneSidKey =
-                'Asia/Kolkata';
+            user.LocaleSidKey = 'en_IN';
 
+            user.EmailEncodingKey = 'UTF-8';
 
-            user.LocaleSidKey =
-                'en_IN';
-
-
-            user.EmailEncodingKey =
-                'UTF-8';
-
-
-            user.LanguageLocaleKey =
-                'en_US';
+            user.LanguageLocaleKey = 'en_US';
 
 
 
             String userId =
-                Site.createExternalUser(
+                Site.createPortalUser(
                     user,
                     acc.Id,
-                    password
+                    password,
+                    true
                 );
-
-
-
-            return userId;
-
-
-
-        }
-        catch(Exception e){
-
-
-            throw new AuraHandledException(
-                'Registration Failed: '
-                + e.getMessage()
-                + ' Line: '
-                + e.getLineNumber()
-            );
-
-
         }
 
     }
