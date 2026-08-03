@@ -1,9 +1,37 @@
-public with sharing class LoginController {
+public without sharing class LoginController {
 
-    @AuraEnabled(cacheable=true)
-    public static String getLoginUrl() {
+    @AuraEnabled
+    public static String login(
+        String username,
+        String password
+    ) {
 
-        return Site.getLoginUrl();
+        try {
+
+            PageReference pageRef = Site.login(
+                username,
+                password,
+                '/s/'
+            );
+
+
+            if(pageRef != null){
+
+                return pageRef.getUrl();
+
+            }
+
+            return null;
+
+        }
+        catch(Exception e){
+
+            throw new AuraHandledException(
+                'Invalid username or password'
+            );
+
+        }
+
     }
 
 }
