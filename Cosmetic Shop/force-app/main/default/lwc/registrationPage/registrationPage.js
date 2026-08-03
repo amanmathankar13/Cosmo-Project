@@ -11,6 +11,7 @@ export default class CustomerRegistration extends LightningElement {
     lastName;
     email;
     phone;
+    password;
 
     message;
 
@@ -37,8 +38,9 @@ export default class CustomerRegistration extends LightningElement {
 
             email:this.email,
 
-            phone:this.phone
+            phone:this.phone,
 
+            password:this.password
 
         })
 
