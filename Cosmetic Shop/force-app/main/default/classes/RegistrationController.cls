@@ -45,6 +45,7 @@ public without sharing class RegistrationController {
 
             // Create External User
 
+            // Create External User
 
             User user = new User();
 
@@ -71,7 +72,7 @@ public without sharing class RegistrationController {
             [
                 SELECT Id
                 FROM Profile
-                WHERE Name = 'Customer'
+                WHERE Name = 'Customer Community Login User'
                 LIMIT 1
             ].Id;
 
@@ -100,6 +101,21 @@ public without sharing class RegistrationController {
                     password,
                     true
                 );
+
+
+
+        }
+        catch(Exception e){
+
+
+            throw new AuraHandledException(
+                'Registration Failed: '
+                + e.getMessage()
+                + ' Line: '
+                + e.getLineNumber()
+            );
+
+
         }
 
     }
