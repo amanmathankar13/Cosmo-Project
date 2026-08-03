@@ -102,6 +102,8 @@ public without sharing class RegistrationController {
                     true
                 );
 
+            return userId;
+
 
 
         }
@@ -118,7 +120,6 @@ public without sharing class RegistrationController {
 
         }
 
-        return userId;
 
     }
 
