@@ -1,22 +1,37 @@
+import { LightningElement } from 'lwc';
 import login from '@salesforce/apex/LoginController.login';
 
+export default class CustomerLogin extends LightningElement {
 
-handleLogin(){
+    username;
+    password;
+    errorMessage;
 
-    login({
-        username:this.username,
-        password:this.password
-    })
-    .then(result=>{
 
-        window.location.href = result;
+    handleChange(event) {
 
-    })
-    .catch(error=>{
+        this[event.target.name] = event.target.value;
 
-        this.errorMessage =
-        error.body.message;
+    }
 
-    });
+
+    handleLogin() {
+
+        login({
+            username: this.username,
+            password: this.password
+        })
+        .then(result => {
+
+            window.location.href = result;
+
+        })
+        .catch(error => {
+
+            this.errorMessage = error.body.message;
+
+        });
+
+    }
 
 }
