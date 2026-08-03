@@ -118,6 +118,8 @@ public without sharing class RegistrationController {
 
         }
 
+        return userId;
+
     }
 
 }
