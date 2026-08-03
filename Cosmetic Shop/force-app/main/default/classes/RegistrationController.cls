@@ -68,12 +68,20 @@ public without sharing class RegistrationController {
             }
             catch(Exception e){
 
+                System.debug('ERROR MESSAGE : ' + e.getMessage());
+                System.debug('ERROR LINE : ' + e.getLineNumber());
+                System.debug('STACK TRACE : ' + e.getStackTraceString());
+
                 throw new AuraHandledException(
-                    'CONTACT INSERT FAILED: ' +
-                    e.getMessage()
+                    'Registration Failed: ' +
+                    e.getTypeName() +
+                    ' - ' +
+                    e.getMessage() +
+                    ' Line: ' +
+                    e.getLineNumber()
                 );
 
-            }
+}
 
 
 
