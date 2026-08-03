@@ -1,39 +1,42 @@
-<template>
-
-    <lightning-card title="Customer Login">
-
-        <div class="slds-p-around_medium">
-
-            <lightning-input
-                label="Username"
-                name="username"
-                type="email"
-                onchange={handleChange}>
-            </lightning-input>
+import { LightningElement } from 'lwc';
+import login from '@salesforce/apex/LoginController.login';
 
 
-            <lightning-input
-                label="Password"
-                name="password"
-                type="password"
-                onchange={handleChange}>
-            </lightning-input>
+export default class CustomerLogin extends LightningElement {
 
 
-            <lightning-button
-                label="Login"
-                variant="brand"
-                onclick={handleLogin}>
-            </lightning-button>
+    username;
+    password;
+    errorMessage;
 
 
-            <template if:true={errorMessage}>
-                <p>{errorMessage}</p>
-            </template>
+    handleChange(event) {
+
+        const field = event.target.name;
+
+        this[field] = event.target.value;
+
+    }
 
 
-        </div>
+    handleLogin() {
 
-    </lightning-card>
+        login({
+            username: this.username,
+            password: this.password
+        })
+        .then(result => {
 
-</template>
+            window.location.href = result;
+
+        })
+        .catch(error => {
+
+            this.errorMessage =
+                error.body.message;
+
+        });
+
+    }
+
+}
