@@ -1,26 +1,33 @@
-public with sharing class RegistrationController {
-
+public without sharing class RegistrationController {
 
     @AuraEnabled
     public static String registerCustomer(
         String firstName,
         String lastName,
         String email,
-        String phone
-    ){
+        String phone,
+        String address,
+        String city,
+        String state,
+        String country,
+        String pincode
+    ) {
 
-        try{
+        try {
 
+            // Create Customer Account
 
             Account acc = new Account();
 
-            acc.Name =
-            firstName + ' ' + lastName + ' Account';
+            acc.Name = firstName + ' ' + lastName + ' Account';
 
+            acc.OwnerId = UserInfo.getUserId();
 
             insert acc;
 
 
+
+            // Create Customer Contact
 
             Contact con = new Contact();
 
@@ -35,6 +42,27 @@ public with sharing class RegistrationController {
             con.AccountId = acc.Id;
 
 
+            if(address != null){
+                con.MailingStreet = address;
+            }
+
+            if(city != null){
+                con.MailingCity = city;
+            }
+
+            if(state != null){
+                con.MailingState = state;
+            }
+
+            if(country != null){
+                con.MailingCountry = country;
+            }
+
+            if(pincode != null){
+                con.MailingPostalCode = pincode;
+            }
+
+
             insert con;
 
 
@@ -46,7 +74,10 @@ public with sharing class RegistrationController {
         catch(Exception e){
 
             throw new AuraHandledException(
-                e.getMessage()
+                'Registration Failed: ' +
+                e.getMessage() +
+                ' Line: ' +
+                e.getLineNumber()
             );
 
         }
