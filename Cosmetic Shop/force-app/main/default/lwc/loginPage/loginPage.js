@@ -1,43 +1,24 @@
 import { LightningElement } from 'lwc';
-import { NavigationMixin } from 'lightning/navigation';
+import getLoginUrl from '@salesforce/apex/LoginController.getLoginUrl';
 
 
-export default class CustomerLogin extends NavigationMixin(LightningElement) {
-
-
-    username;
-    password;
-
-    errorMessage;
-
-
-
-    handleUsername(event){
-
-        this.username = event.target.value;
-
-    }
-
-
-
-    handlePassword(event){
-
-        this.password = event.target.value;
-
-    }
-
+export default class CustomerLogin extends LightningElement {
 
 
     handleLogin(){
 
+        getLoginUrl()
+            .then(url => {
 
-        window.location.href =
-        '/servlet/servlet.su' +
-        '?email=' + this.username +
-        '&password=' + this.password;
+                window.location.href = url;
 
+            })
+            .catch(error => {
+
+                console.error(error);
+
+            });
 
     }
-
 
 }
