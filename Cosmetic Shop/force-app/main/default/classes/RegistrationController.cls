@@ -21,8 +21,6 @@ public without sharing class RegistrationController {
 
             acc.Name = firstName + ' ' + lastName + ' Account';
 
-            acc.OwnerId = UserInfo.getUserId();
-
             insert acc;
 
 
@@ -63,7 +61,19 @@ public without sharing class RegistrationController {
             }
 
 
-            insert con;
+            try{
+
+                insert con;
+
+            }
+            catch(Exception e){
+
+                throw new AuraHandledException(
+                    'CONTACT INSERT FAILED: ' +
+                    e.getMessage()
+                );
+
+            }
 
 
 
