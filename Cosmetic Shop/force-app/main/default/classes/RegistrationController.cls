@@ -64,13 +64,13 @@ public without sharing class RegistrationController {
             user.EmailEncodingKey = 'UTF-8';
             user.LanguageLocaleKey = 'en_US';
 
-            String userId = Site.createExternalUser(user, acc.Id, password);
+            insert user;
 
 
             System.debug('CONTACT CREATED: ' + con.Id);
 
 
-            return userId;
+            return user.Id;
 
 
         }
