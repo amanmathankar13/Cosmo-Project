@@ -6,17 +6,17 @@
 
             <lightning-input
                 label="Username"
+                name="username"
                 type="email"
-                value={username}
-                onchange={handleUsername}>
+                onchange={handleChange}>
             </lightning-input>
 
 
             <lightning-input
                 label="Password"
+                name="password"
                 type="password"
-                value={password}
-                onchange={handlePassword}>
+                onchange={handleChange}>
             </lightning-input>
 
 
@@ -28,9 +28,7 @@
 
 
             <template if:true={errorMessage}>
-                <p class="error">
-                    {errorMessage}
-                </p>
+                <p>{errorMessage}</p>
             </template>
 
 
