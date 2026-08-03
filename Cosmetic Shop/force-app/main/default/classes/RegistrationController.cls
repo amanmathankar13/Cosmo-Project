@@ -66,6 +66,8 @@ public without sharing class RegistrationController {
 
             insert user;
 
+            System.setPassword(user.Id, password);
+
 
             System.debug('CONTACT CREATED: ' + con.Id);
 
