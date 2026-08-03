@@ -1,6 +1,5 @@
 public without sharing class RegistrationController {
 
-
     @AuraEnabled
     public static String registerCustomer(
         String firstName,
@@ -10,11 +9,10 @@ public without sharing class RegistrationController {
         String password
     ) {
 
-
         try {
 
+            System.debug('STEP 1: Creating Account');
 
-            // Create Account
 
             Account acc = new Account();
 
@@ -23,8 +21,11 @@ public without sharing class RegistrationController {
             insert acc;
 
 
+            System.debug('ACCOUNT CREATED: ' + acc.Id);
 
-            // Create Contact
+
+            System.debug('STEP 2: Creating Contact');
+
 
             Contact con = new Contact();
 
@@ -41,85 +42,51 @@ public without sharing class RegistrationController {
 
             insert con;
 
-
-
-            // Create External User
-
-            // Create External User
-
             User user = new User();
 
             user.FirstName = firstName;
-
             user.LastName = lastName;
-
             user.Email = email;
-
-            user.Username = email;
-
-            user.CommunityNickname =
-                firstName.toLowerCase()
-                +
-                lastName.toLowerCase()
-                +
-                String.valueOf(DateTime.now().getTime());
-
-
+            user.Username = email+'.customer';
+            user.CommunityNickname = firstName.toLowerCase() + lastName.toLowerCase() + String.valueOf(DateTime.now().getTime());
             user.ContactId = con.Id;
 
+            user.ProfileId = [SELECT Id FROM Profile WHERE Name = 'Customer' LIMIT 1].Id;
 
-            user.ProfileId =
-            [
-                SELECT Id
-                FROM Profile
-                WHERE Name = 'Customer Community Login User'
-                LIMIT 1
-            ].Id;
-
-
-            user.Alias =
-                (firstName.substring(0,1)
-                +
-                lastName.substring(0,1))
-                .toLowerCase();
-
-
+            user.Alias = (firstName.substring(0, 1) + lastName.substring(0, 4)).toLowerCase();
             user.TimeZoneSidKey = 'Asia/Kolkata';
-
             user.LocaleSidKey = 'en_IN';
-
             user.EmailEncodingKey = 'UTF-8';
-
             user.LanguageLocaleKey = 'en_US';
 
+            String userId = Site.createExternalUser(user, accountId, password);
 
 
-            String userId =
-                Site.createPortalUser(
-                    user,
-                    acc.Id,
-                    password,
-                    true
-                );
+            System.debug('CONTACT CREATED: ' + con.Id);
+
 
             return userId;
-
 
 
         }
         catch(Exception e){
 
+            System.debug('ERROR TYPE : ' + e.getTypeName());
+            System.debug('ERROR MESSAGE : ' + e.getMessage());
+            System.debug('ERROR LINE : ' + e.getLineNumber());
+            System.debug('STACK TRACE : ' + e.getStackTraceString());
+
 
             throw new AuraHandledException(
-                'Registration Failed: '
+                'Registration Failed: ' 
+                + e.getTypeName()
+                + ' - '
                 + e.getMessage()
                 + ' Line: '
                 + e.getLineNumber()
             );
 
-
         }
-
 
     }
 
